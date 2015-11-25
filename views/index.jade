@@ -1,0 +1,28 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+    h2#timer test
+
+
+    script(type='text/javascript').
+        function byId(id) {
+            return document.getElementById(id);
+        }
+        function update() {
+            var timer = byId('timer');
+            var ts = countdown(
+                    new Date('2015/12/03 12:00'),
+                    null,
+                    countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS,
+                    null,
+                    1 //TODO: прыгает при 0
+            );
+
+            timer.innerHTML = ts.toHTML();
+
+            requestAnimationFrame(update, timer.parentNode);
+        }
+
+        update();
