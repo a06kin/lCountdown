@@ -1,12 +1,27 @@
 extends layout
 
 block content
-    .container#main
-        .row#centerV
-            h1#d .
-            h1#h .
-            h1#m .
-            h1#s .  
+    .container
+        .row.header
+            .twelve.columns
+                h1#timer .
+        .row.post
+            .one-half.column.u-pull-right
+                form(action='add', method='post')
+                    .row
+                        .six.columns.u-pull-right
+                            input.u-full-width(type='text', placeholder='Your name', name='name')
+                    textarea.u-pull-right.u-full-width(placeholder='Hi Lev … {words of love}', name='wish')
+                    input.u-pull-right.button-primary(type='submit', value='Submit')
+
+        for val in posts
+            .row
+                pre.normal-text
+                    code.prettyprint.normal-text
+                        p= val.wish
+                        span.u-pull-right.author
+                            b= val.name
+            hr
 
 
 
@@ -20,11 +35,7 @@ block content
         }
 
         function update() {
-            var timer = byId('timer');
-            var d = byId('d');
-            var h = byId('h');
-            var m = byId('m');
-            var s = byId('s');
+            var t = byId('timer');
             var ts = countdown(
                     new Date('2015/12/16 12:00'),
                     null,
@@ -32,20 +43,18 @@ block content
                     null,
                     1
             );
-
-            d.innerHTML = ts.days + ' days';
-            h.innerHTML = ts.hours + ' hours';
-            m.innerHTML = ts.minutes + ' minutes';
+            var output = ts.days + ' days ' +
+                         ts.hours + ' hours ' +
+                         ts.minutes + ' minutes ';
             if(!isInteger(ts.seconds)){
-                s.innerHTML = ts.seconds + ' seconds';
+                output += ts.seconds + ' seconds';
             }else{
-                s.innerHTML = ts.seconds + '.0 seconds';
+                output += ts.seconds + '.0 seconds';
             }
 
+            t.innerHTML = output;
 
-            //TODO: sceleton
-
-            requestAnimationFrame(update, d.parentNode);
+            requestAnimationFrame(update, t.parentNode);
         }
 
         update();

@@ -1,0 +1,28 @@
+.header {
+  margin-top: 6rem;
+  text-align: center;
+}
+.post {
+  margin-top: 6rem;
+}
+.hide {
+  display: none;
+}
+.normal-text {
+  white-space: normal;
+}
+@media (min-width 550px) {
+  .header {
+    margin-top: 18rem;
+  }
+  .post {
+    margin-top: 18rem;
+  }
+}
+.prettyprint {
+  background: #fff;
+  font-family: Menlo, 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Consolas, monospace;
+  font-size: 1.2rem;
+  padding: 2.5rem 3rem;
+  -webkit-font-smoothing: antialiased;
+}
