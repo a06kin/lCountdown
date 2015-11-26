@@ -1,30 +1,51 @@
 extends layout
 
 block content
-    h1#timer test
+    .container#main
+        .row#centerV
+            h1#d .
+            h1#h .
+            h1#m .
+            h1#s .  
+
 
 
     script(type='text/javascript').
         function byId(id) {
             return document.getElementById(id);
         }
+
+        function isInteger(num) {
+            return (num ^ 0) === num;
+        }
+
         function update() {
             var timer = byId('timer');
+            var d = byId('d');
+            var h = byId('h');
+            var m = byId('m');
+            var s = byId('s');
             var ts = countdown(
-                    new Date('2015/12/03 12:00'),
+                    new Date('2015/12/16 12:00'),
                     null,
                     countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS,
                     null,
-                    1 //TODO: прыгает при 0
+                    1
             );
 
-            timer.innerHTML = ts.toHTML();
+            d.innerHTML = ts.days + ' days';
+            h.innerHTML = ts.hours + ' hours';
+            m.innerHTML = ts.minutes + ' minutes';
+            if(!isInteger(ts.seconds)){
+                s.innerHTML = ts.seconds + ' seconds';
+            }else{
+                s.innerHTML = ts.seconds + '.0 seconds';
+            }
 
-            //TODO: JSON.stringify(ts, null, '  ');
 
             //TODO: sceleton
 
-            requestAnimationFrame(update, timer.parentNode);
+            requestAnimationFrame(update, d.parentNode);
         }
 
         update();
