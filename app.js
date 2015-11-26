@@ -11,7 +11,18 @@ var routes = require('./routes/index');
 
 var app = express();
 
-var db = mongoose.connect('mongodb://localhost:27017/lCount');
+var uristring =
+    process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost:27017/lCount';
+
+var db = mongoose.connect(uristring, function (err, res) {
+    if (err) {
+        console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+    } else {
+        console.log ('Succeeded connected to: ' + uristring);
+    }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
