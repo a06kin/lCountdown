@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
 router.post('/add', function (req, res, next) {
     post = new Post({
         'name': req.body.name,
-        'wish': req.body.wish
+        'wish': req.body.wish.toString('utf8')
     });
     post.save(function (err) {
         res.redirect('/');
